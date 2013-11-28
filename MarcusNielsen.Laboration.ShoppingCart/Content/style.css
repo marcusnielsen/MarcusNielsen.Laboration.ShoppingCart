@@ -1,0 +1,32 @@
+﻿html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -40px;
+}
+
+.footer, .push, header {
+    height: 40px;
+}
+
+.top-margin {
+    margin-top: 5px;
+}
+
+.img-focused {
+    margin: 0 auto;
+}
+
+.img-listed {
+    width: 64px;
+    margin-right: 5px;
+}
+
+.inline-block {
+    display: inline-block;
+    width: 100px;
+}
