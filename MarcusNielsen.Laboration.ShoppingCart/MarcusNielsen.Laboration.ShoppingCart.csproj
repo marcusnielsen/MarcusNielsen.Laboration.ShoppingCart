@@ -111,10 +111,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="appSpec\appCtrl.spec.js" />
+    <Content Include="appSpec\specRunner.html" />
     <Content Include="app\appCtrl.js" />
     <Content Include="app\appModule.js" />
-    <Content Include="app\shoppingCart\jsonProductFeedResultMockFactory.js" />
-    <Content Include="app\shoppingCart\productsFactory.js" />
+    <Content Include="app\products\jsonProductFeedResultMockFactory.js" />
+    <Content Include="app\products\productsFactory.js" />
     <Content Include="app\shoppingCart\shoppingCartFactory.js" />
     <Content Include="Content\style.css" />
     <Content Include="index.html" />
@@ -126,9 +128,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="appSpec\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

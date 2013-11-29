@@ -1,1 +1,1 @@
-﻿var shoppingCartModule = angular.module('shoppingCart', []);
+﻿var shoppingCartModule = angular.module('shoppingCartModule', []);

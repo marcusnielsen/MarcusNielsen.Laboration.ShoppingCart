@@ -36,6 +36,10 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
         return _.pick(product, ['title', 'price', 'currency']);
     };
 
+    publicObj.clearReservations = function () {
+        reservations = [];
+    };
+
     publicObj.getProducts = function () {
         return products;
     };

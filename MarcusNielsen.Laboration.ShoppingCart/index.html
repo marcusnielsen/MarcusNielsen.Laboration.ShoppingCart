@@ -2,7 +2,7 @@
 
 <!--ng-app marks where angular kicks in-->
 <!--ng-controller sets the datasource for databinding-->
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="shoppingCart" data-ng-controller="appCtrl">
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="shoppingCartModule" data-ng-controller="appCtrl">
 <head>
     <!--databinding of title-->
     <title>{{app.title}}</title>
@@ -16,14 +16,17 @@
             <div class="container text-center">
                 <div class="top-margin clearfix">
                     <span class="pull-right">
+                        <!--This should be in a controller-->
                         <span>You have </span>
                         <span data-ng-show="shoppingCart.getUnitsSum() === 0">no items </span>
-                        <span data-ng-show="shoppingCart.getUnitsSum() === 1">{{shoppingCart.getUnitsSum()}} item </span>
-                        <span data-ng-show="shoppingCart.getUnitsSum() > 1">{{shoppingCart.getUnitsSum()}} items </span>
-                        <span>in your cart </span>
-                        <span class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span></span>
+                        <span data-ng-show="shoppingCart.getUnitsSum() === 1"><strong>{{shoppingCart.getUnitsSum()}}</strong> item </span>
+                        <span data-ng-show="shoppingCart.getUnitsSum() > 1"><strong>{{shoppingCart.getUnitsSum()}}</strong> items </span>
+                        <span>in your cart</span>
+                        <!--Currency system convertion not included. It will always sum as SEK-->
+                        <span data-ng-show="shoppingCart.getUnitsSum() > 0">costing <strong>{{shoppingCart.getPricesSum()}}</strong> SEK</span>
+                        <span class="btn btn-danger" data-ng-disabled="shoppingCart.getUnitsSum() === 0" data-ng-click="shoppingCart.clear()"> <span class="glyphicon glyphicon-remove"></span></span>
                     </span>
-                    <span class="pull-left"><h4>{{app.title}}</h4></span>
+                    <h4 class="pull-left">{{app.title}}</h4>
                 </div>
             </div>
         </div>
@@ -31,7 +34,7 @@
         <div class="container top-margin">
             <div class="jumbotron clearfix">
                 <h1 class="text-center">{{products.getFocusedProduct().title}}</h1>
-                <img class="img-responsive img-rounded img-focused" src="{{products.getFocusedProduct().image}}" alt="products.getFocusedProduct().title" />
+                <img class="img-responsive img-rounded img-focused" data-ng-src="{{products.getFocusedProduct().image}}" alt="products.getFocusedProduct().title" />
                 <p class="top-margin text-center">
                     {{products.getFocusedProduct().price}} {{products.getFocusedProduct().currency}}
                     <span class="btn btn-primary" data-ng-click="shoppingCart.addToCart(products.getFocusedProduct().title)">
@@ -42,7 +45,7 @@
 
             <div class="list-group">
                 <div class="list-group-item clearfix" data-ng-repeat="product in products.getProducts()">
-                    <img class="img-listed img-rounded pull-left" src="{{product.image}}" alt="{{product.title}}" />
+                    <img class="img-listed img-rounded pull-left" data-ng-src="{{product.image}}" alt="{{product.title}}" />
                     <span class="pull-right">
                         <span class="inline-block">
                             <span>Available </span>
@@ -58,7 +61,7 @@
                     <h4 class="list-group-item-heading">{{product.title}}
                     </h4>
                     <p class="list-group-item-text">
-                        <strong>{{products.getFocusedProduct().price}}</strong> {{products.getFocusedProduct().currency}}
+                        <strong>{{product.price}}</strong> {{product.currency}}
                     </p>
                 </div>
             </div>
@@ -72,7 +75,7 @@
     <div class="footer">
         <div class="container text-center">
             <h4>
-                <a href="mailto:marcus.nielsen@r2m.se?subject=Vi väljer dig!">{{app.footerText}}</a>
+                <a href="mailto:marcus.nielsen@r2m.se?subject=We choose you!">{{app.footerText}}</a>
             </h4>
         </div>
     </div>
@@ -82,7 +85,7 @@
     <script src="app/appModule.js"></script>
     <script src="app/appCtrl.js"></script>
     <script src="app/shoppingCart/shoppingCartFactory.js"></script>
-    <script src="app/shoppingCart/productsFactory.js"></script>
-    <script src="app/shoppingCart/jsonProductFeedResultMockFactory.js"></script>
+    <script src="app/products/productsFactory.js"></script>
+    <script src="app/products/jsonProductFeedResultMockFactory.js"></script>
 </body>
 </html>

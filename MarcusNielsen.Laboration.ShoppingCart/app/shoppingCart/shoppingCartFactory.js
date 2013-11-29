@@ -45,13 +45,14 @@
 
     publicObj.getPricesSum = function () {
         return _.reduce(cartItems, function (accumulator, value, key, collection) {
-            accumulator += value.price;
+            accumulator += value.price * value.units;
             return accumulator;
         }, 0);
     };
 
     publicObj.clear = function () {
         cartItems = [];
+        productsFactory.clearReservations();
     };
 
     return publicObj;
