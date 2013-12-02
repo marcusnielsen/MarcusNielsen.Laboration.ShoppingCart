@@ -37,7 +37,7 @@
                 <img src="javascript:;" class="img-responsive img-rounded img-focused" data-ng-src="{{products.getFocusedProduct().image}}" alt="products.getFocusedProduct().title" />
                 <p class="top-margin text-center">
                     {{products.getFocusedProduct().price}} {{products.getFocusedProduct().currency}}
-                    <span class="btn btn-warning" data-ng-click="shoppingCart.addToCart(products.getFocusedProduct().title)">
+                    <span class="btn btn-warning" data-ng-disabled="!products.isAvailableByTitle(products.getFocusedProduct().title)" data-ng-click="shoppingCart.addToCart(products.getFocusedProduct().title)">
                         <span class="glyphicon glyphicon-plus"></span>
                     </span>
                 </p>
@@ -54,7 +54,7 @@
                             <strong data-ng-hide="shoppingCart.hasCartItemByTitle(product.title)">0</strong>
                             <strong data-ng-show="shoppingCart.hasCartItemByTitle(product.title)">{{shoppingCart.getCartItemByTitle(product.title).units}}</strong>
                         </span>
-                        <span class="btn btn-warning" data-ng-click="shoppingCart.addToCart(product.title)">
+                        <span class="btn btn-warning" data-ng-disabled="!products.isAvailableByTitle(product.title)" data-ng-click="shoppingCart.addToCart(product.title)">
                             <span class="glyphicon glyphicon-plus"></span>
                         </span>
                     </span>
