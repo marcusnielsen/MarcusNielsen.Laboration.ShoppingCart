@@ -56,17 +56,17 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
 
     publicObj.reserveProductByTitle = function (title) {
 
-       return handleReservationByTitle(title, function (reservation, product) {
-           reservations.push(_.assign(product, { units: 1 }));
+        return handleReservationByTitle(title, function (reservation, product) {
+            reservations.push(_.assign(product, { units: 1 }));
             return true;
         },
-       function (reservation, product) {
-           reservation.units++;
-           return true;
-       },
-       function () {
-           return false;
-       });
+        function (reservation, product) {
+            reservation.units++;
+            return true;
+        },
+        function () {
+            return false;
+        });
     };
 
     publicObj.clearReservations = function () {
@@ -80,8 +80,7 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
         else if (_.isString(titles)) {
             return _.clone(findProductByTitle(titles), true);
         }
-        else if(_.isArray(titles))
-        {
+        else if (_.isArray(titles)) {
             return _.clone(_.filter(products, function (item) {
                 return _.contains(titles, item['title']);
             }), true);
@@ -90,7 +89,16 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
 
     // Try to sell more of the product with most in stock.
     publicObj.getFocusedProduct = function () {
-        return _.max(products, 'available');
+        return _.max(products, function (product) {
+            return handleReservationByTitle(product.title, function (reservation) {
+                return product.available;
+            },
+            function (reservation) {
+                return product.available - reservation.units;
+            }, function (reservation) {
+                return product.available - reservation.units;
+            });
+        });
     };
 
     return publicObj;
