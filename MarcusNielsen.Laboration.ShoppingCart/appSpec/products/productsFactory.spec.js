@@ -21,10 +21,24 @@
         });
     });
 
-    it('should throw exception when a title is not found', function () {
-        expect(function () {
-            productsFactory.findProductByTitle("Hairy Tails");
-        }).toThrow();
+    describe("find product by title", function () {
+
+        it('should throw exception when a title is not found', function () {
+            expect(function () {
+                productsFactory.findProductByTitle("Hairy Tails");
+            }).toThrow();
+        });
+
+        it('should return a product with correct title', function () {
+            expect(productsFactory.findProductByTitle("Duck Tales").title).toEqual("Duck Tales");
+        });
+
+    });
+
+    describe("handle reservation by title", function () {
+        it("should ", function () { });
+        it("", function () { });
+        it("", function () { });
     });
 
     it('should be able to reserve existing product by title', function () {

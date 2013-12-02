@@ -7,19 +7,21 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
     // This should be seen as all reservations received by the server.
     var reservations = [];
 
-    var findProductByTitle = function (title) {
+    var publicObj = {};
+
+    publicObj.findProductByTitle = function (title) {
         var product = _.find(products, { 'title': title });
 
         if (!product) {
             throw "Product is undefined. Title: " + title + ".";
         }
 
-        return product;
+        return _.clone(product, true);
     };
 
-    var handleReservationByTitle = function (title, onReservationNotFoundFn, onReservationAvailableFn, onReservationUnavailableFn) {
+    publicObj.handleReservationByTitle = function (title, onReservationNotFoundFn, onReservationAvailableFn, onReservationUnavailableFn) {
         var reservation = _.find(reservations, { 'title': title });
-        var product = findProductByTitle(title);
+        var product = publicObj.findProductByTitle(title);
 
         if (!reservation) {
             return onReservationNotFoundFn(reservation, product);
@@ -28,18 +30,15 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
         if (reservation.units < product.available) {
             return onReservationAvailableFn(reservation, product);
         }
-            // No product available. reservation is defined and units >= available.
         else {
             return onReservationUnavailableFn(reservation, product);
         }
     };
 
-    var publicObj = {};
-
     publicObj.isAvailableByTitle = function (title) {
 
 
-        return handleReservationByTitle(title, function (reservation, product) {
+        return publicObj.handleReservationByTitle(title, function (reservation, product) {
             if (product.available <= 0) {
                 return false;
             }
@@ -56,7 +55,7 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
 
     publicObj.reserveProductByTitle = function (title) {
 
-        return handleReservationByTitle(title, function (reservation, product) {
+        return publicObj.handleReservationByTitle(title, function (reservation, product) {
             reservations.push(_.assign(product, { units: 1 }));
             return true;
         },
@@ -78,7 +77,7 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
             return _.clone(products);
         }
         else if (_.isString(titles)) {
-            return _.clone(findProductByTitle(titles), true);
+            return _.clone(publicObj.findProductByTitle(titles), true);
         }
         else if (_.isArray(titles)) {
             return _.clone(_.filter(products, function (item) {
@@ -89,8 +88,8 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
 
     // Try to sell more of the product with most in stock.
     publicObj.getFocusedProduct = function () {
-        return _.max(products, function (product) {
-            return handleReservationByTitle(product.title, function (reservation) {
+        return _.clone(_.max(products, function (product) {
+            return publicObj.handleReservationByTitle(product.title, function (reservation) {
                 return product.available;
             },
             function (reservation) {
@@ -98,7 +97,7 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
             }, function (reservation) {
                 return product.available - reservation.units;
             });
-        });
+        }), true);
     };
 
     return publicObj;
