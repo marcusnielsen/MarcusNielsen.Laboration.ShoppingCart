@@ -21,13 +21,13 @@
         });
     });
 
-    it('should not be able to reserve product by title when not in database', function () {
+    it('should throw exception when a title is not found', function () {
         expect(function () {
-            productsFactory.reserveProductByTitle("Hairy Tails");
+            productsFactory.findProductByTitle("Hairy Tails");
         }).toThrow();
     });
 
-    it('should be able to reserver product by title', function () {
+    it('should be able to reserve existing product by title', function () {
         expect(productsFactory.reserveProductByTitle("Duck Tales")).toBe(true);
     });
 });

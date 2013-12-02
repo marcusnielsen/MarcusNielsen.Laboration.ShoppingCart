@@ -47,15 +47,17 @@
                 <div class="list-group-item clearfix" data-ng-repeat="product in products.getProducts()">
                     <img src="javascript:;" class="img-listed img-rounded pull-left" data-ng-src="{{product.image}}" alt="{{product.title}}" />
                     <span class="pull-right">
+                        <span class="btn btn-warning pull-right" data-ng-disabled="!products.isAvailableByTitle(product.title)" data-ng-click="shoppingCart.addToCart(product.title)">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </span>
                         <span class="inline-block">
                             <span>Available </span>
-                            <strong>{{product.available}}</strong><br />
-                            <span>In cart </span>
-                            <strong data-ng-hide="shoppingCart.hasCartItemByTitle(product.title)">0</strong>
-                            <strong data-ng-show="shoppingCart.hasCartItemByTitle(product.title)">{{shoppingCart.getCartItemByTitle(product.title).units}}</strong>
-                        </span>
-                        <span class="btn btn-warning" data-ng-disabled="!products.isAvailableByTitle(product.title)" data-ng-click="shoppingCart.addToCart(product.title)">
-                            <span class="glyphicon glyphicon-plus"></span>
+                            <strong>{{product.available}}</strong>
+                            <span data-ng-show="shoppingCart.hasCartItemByTitle(product.title)">
+                                <br />
+                                <span>In cart </span>
+                                <strong>{{shoppingCart.getCartItemByTitle(product.title).units}}</strong>
+                            </span>
                         </span>
                     </span>
                     <h4 class="list-group-item-heading">{{product.title}}
