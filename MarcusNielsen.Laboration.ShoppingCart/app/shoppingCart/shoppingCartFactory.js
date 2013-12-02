@@ -19,7 +19,7 @@
                 existingCartItem.units++;
             }
             else {
-                cartItems.push({'title': title,  units: 1 });
+                cartItems.push(_.assign(productsFactory.getProducts(title), { units: 1 }));
             }
         }
     };
@@ -46,6 +46,10 @@
     };
 
     publicObj.getPricesSum = function () {
+        if (cartItems.length === 0) {
+            return 0;
+        }
+
         return _.reduce(cartItems, function (accumulator, value, key, collection) {
             accumulator += value.price * value.units;
             return accumulator;

@@ -57,7 +57,7 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
     publicObj.reserveProductByTitle = function (title) {
 
        return handleReservationByTitle(title, function (reservation, product) {
-            reservations.push(_.assign(_.pick(product, ['title']), { units: 1 }));
+           reservations.push(_.assign(product, { units: 1 }));
             return true;
         },
        function (reservation, product) {
@@ -73,8 +73,19 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
         reservations = [];
     };
 
-    publicObj.getProducts = function () {
-        return products;
+    publicObj.getProducts = function (titles) {
+        if (!titles) {
+            return _.clone(products);
+        }
+        else if (_.isString(titles)) {
+            return _.clone(findProductByTitle(titles), true);
+        }
+        else if(_.isArray(titles))
+        {
+            return _.clone(_.filter(products, function (item) {
+                return _.contains(titles, item['title']);
+            }), true);
+        }
     };
 
     // Try to sell more of the product with most in stock.
