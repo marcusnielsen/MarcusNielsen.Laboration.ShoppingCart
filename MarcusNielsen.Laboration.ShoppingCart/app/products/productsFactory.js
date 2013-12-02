@@ -90,7 +90,16 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
 
     // Try to sell more of the product with most in stock.
     publicObj.getFocusedProduct = function () {
-        return _.max(products, 'available');
+        return _.max(products, function (product) {
+            return handleReservationByTitle(product.title, function (reservation) {
+                return product.available;
+            },
+            function (reservation) {
+                return product.available - reservation.units;
+            }, function (reservation) {
+                return product.available - reservation.units;
+            });
+        });
     };
 
     return publicObj;
