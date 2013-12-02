@@ -24,7 +24,7 @@
                         <span>in your cart</span>
                         <!--Currency system convertion not included. It will always sum as SEK-->
                         <span data-ng-show="shoppingCart.getUnitsSum() > 0">costing <strong>{{shoppingCart.getPricesSum()}}</strong> SEK</span>
-                        <span class="btn btn-danger" data-ng-disabled="shoppingCart.getUnitsSum() === 0" data-ng-click="shoppingCart.clear()"> <span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="btn btn-danger" data-ng-disabled="shoppingCart.getUnitsSum() === 0" data-ng-click="shoppingCart.clear()"><span class="glyphicon glyphicon-remove"></span></span>
                     </span>
                     <h4 class="pull-left">{{app.title}}</h4>
                 </div>
@@ -34,18 +34,18 @@
         <div class="container top-margin">
             <div class="jumbotron clearfix">
                 <h1 class="text-center">{{products.getFocusedProduct().title}}</h1>
-                <img class="img-responsive img-rounded img-focused" data-ng-src="{{products.getFocusedProduct().image}}" alt="products.getFocusedProduct().title" />
+                <img src="javascript:;" class="img-responsive img-rounded img-focused" data-ng-src="{{products.getFocusedProduct().image}}" alt="products.getFocusedProduct().title" />
                 <p class="top-margin text-center">
                     {{products.getFocusedProduct().price}} {{products.getFocusedProduct().currency}}
-                    <span class="btn btn-primary" data-ng-click="shoppingCart.addToCart(products.getFocusedProduct().title)">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    <span class="btn btn-warning" data-ng-click="shoppingCart.addToCart(products.getFocusedProduct().title)">
+                        <span class="glyphicon glyphicon-plus"></span>
                     </span>
                 </p>
             </div>
 
             <div class="list-group">
                 <div class="list-group-item clearfix" data-ng-repeat="product in products.getProducts()">
-                    <img class="img-listed img-rounded pull-left" data-ng-src="{{product.image}}" alt="{{product.title}}" />
+                    <img src="javascript:;" class="img-listed img-rounded pull-left" data-ng-src="{{product.image}}" alt="{{product.title}}" />
                     <span class="pull-right">
                         <span class="inline-block">
                             <span>Available </span>
@@ -54,8 +54,8 @@
                             <strong data-ng-hide="shoppingCart.hasCartItemByTitle(product.title)">0</strong>
                             <strong data-ng-show="shoppingCart.hasCartItemByTitle(product.title)">{{shoppingCart.getCartItemByTitle(product.title).units}}</strong>
                         </span>
-                        <span class="btn btn-primary" data-ng-click="shoppingCart.addToCart(product.title)">
-                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span class="btn btn-warning" data-ng-click="shoppingCart.addToCart(product.title)">
+                            <span class="glyphicon glyphicon-plus"></span>
                         </span>
                     </span>
                     <h4 class="list-group-item-heading">{{product.title}}
@@ -82,7 +82,7 @@
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.0/lodash.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-    <script src="app/appModule.js"></script>
+    <script src="app/shoppingCartModule.js"></script>
     <script src="app/appCtrl.js"></script>
     <script src="app/shoppingCart/shoppingCartFactory.js"></script>
     <script src="app/products/productsFactory.js"></script>

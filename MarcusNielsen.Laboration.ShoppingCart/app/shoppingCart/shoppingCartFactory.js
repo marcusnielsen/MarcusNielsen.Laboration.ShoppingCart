@@ -5,19 +5,19 @@
 
     publicObj.addToCart = function (title) {
         try {
-            var newCartItem = productsFactory.reserveProductByTitle(title);
+            var isReserved = productsFactory.reserveProductByTitle(title);
         } catch (e) {
             $log.warn(e);
         }
 
-        if (newCartItem) {
+        if (isReserved) {
             var existingCartItem = _.find(cartItems, {'title': title});
 
             if (existingCartItem) {
                 existingCartItem.units++;
             }
             else {
-                cartItems.push(_.assign(newCartItem, { units: 1 }));
+                cartItems.push({'title': title,  units: 1 }));
             }
         }
     };

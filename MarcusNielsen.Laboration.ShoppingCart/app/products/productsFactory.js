@@ -7,33 +7,66 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
     // This should be seen as all reservations received by the server.
     var reservations = [];
 
-    var publicObj = {};
-
-    publicObj.reserveProductByTitle = function (title) {
+    var findProductByTitle = function (title) {
         var product = _.find(products, { 'title': title });
 
         if (!product) {
             throw "Product is undefined. Title: " + title + ".";
         }
 
-        if (product.available <= 0) {
-            return;
-        }
+        return product;
+    };
 
+    var handleReservationByTitle = function (title, onReservationNotFoundFn, onReservationAvailableFn, onReservationUnavailableFn) {
         var reservation = _.find(reservations, { 'title': title });
+        var product = findProductByTitle(title);
 
         if (!reservation) {
-            reservations.push(_.assign(_.pick(product, ['title']), { units: 1 }));
-        }
-        else if (reservation.units < product.available) {
-            reservation.units++;
-        }
-        // No product available. reservation is defined and units >= available.
-        else {
-            return;
+            return onReservationNotFoundFn(reservation, product);
         }
 
-        return _.pick(product, ['title', 'price', 'currency']);
+        if (reservation.units < product.available) {
+            return onReservationAvailableFn(reservation, product);
+        }
+            // No product available. reservation is defined and units >= available.
+        else {
+            return onReservationUnavailableFn(reservation, product);
+        }
+    };
+
+    var publicObj = {};
+
+    publicObj.isAvailableByTitle = function (title) {
+
+
+        return handleReservationByTitle(title, function (reservation, product) {
+            if (product.available <= 0) {
+                return false;
+            }
+
+            return true;
+        },
+        function () {
+            return true;
+        },
+        function () {
+            return false;
+        });
+    };
+
+    publicObj.reserveProductByTitle = function (title) {
+
+       return handleReservationByTitle(title, function (reservation, product) {
+            reservations.push(_.assign(_.pick(product, ['title']), { units: 1 }));
+            return true;
+        },
+       function (reservation, product) {
+           reservation.units++;
+           return true;
+       },
+       function () {
+           return false;
+       });
     };
 
     publicObj.clearReservations = function () {

@@ -112,9 +112,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appSpec\appCtrl.spec.js" />
+    <Content Include="appSpec\products\productsFactory.spec.js" />
     <Content Include="appSpec\specRunner.html" />
     <Content Include="app\appCtrl.js" />
-    <Content Include="app\appModule.js" />
+    <Content Include="app\shoppingCartModule.js" />
     <Content Include="app\products\jsonProductFeedResultMockFactory.js" />
     <Content Include="app\products\productsFactory.js" />
     <Content Include="app\shoppingCart\shoppingCartFactory.js" />
