@@ -36,8 +36,6 @@ shoppingCartModule.factory('productsFactory', ['jsonProductFeedResultMockFactory
     };
 
     publicObj.isAvailableByTitle = function (title) {
-
-
         return publicObj.handleReservationByTitle(title, function (reservation, product) {
             if (product.available <= 0) {
                 return false;
