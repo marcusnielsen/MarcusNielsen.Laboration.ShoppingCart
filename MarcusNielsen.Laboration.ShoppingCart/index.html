@@ -24,7 +24,7 @@
                         <span>in your cart</span>
                         <!--Currency system convertion not included. It will always sum as SEK-->
                         <span data-ng-show="shoppingCart.getUnitsSum() > 0">costing <strong>{{shoppingCart.getPricesSum()}}</strong> SEK</span>
-                        <span class="btn btn-danger" data-ng-disabled="shoppingCart.getUnitsSum() === 0" data-ng-click="shoppingCart.clear()"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="btn btn-danger btn-xs" data-ng-disabled="shoppingCart.getUnitsSum() === 0" data-ng-click="shoppingCart.clear()"><span class="glyphicon glyphicon-trash"></span></span>
                     </span>
                     <h4 class="pull-left">{{app.title}}</h4>
                 </div>

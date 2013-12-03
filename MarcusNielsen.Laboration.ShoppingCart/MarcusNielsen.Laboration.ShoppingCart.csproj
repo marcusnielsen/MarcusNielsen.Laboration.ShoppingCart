@@ -44,6 +44,7 @@
   <ItemGroup>
     <Content Include="appSpec\appCtrl.spec.js" />
     <Content Include="appSpec\products\productsFactory.spec.js" />
+    <Content Include="appSpec\shoppingCart\shoppingCartFactory.spec.js" />
     <Content Include="appSpec\specRunner.html" />
     <Content Include="app\appCtrl.js" />
     <Content Include="app\shoppingCartModule.js" />

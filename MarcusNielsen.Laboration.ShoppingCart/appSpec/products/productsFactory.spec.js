@@ -49,24 +49,65 @@
     });
 
     describe("is available by title", function () {
+        it("should return true when there is a product available", function () {
+            expect(productsFactory.isAvailableByTitle("Duck Tales")).toBe(true);
+        });
 
+        it("should return false when there is no product available", function () {
+            productsFactory.reserveProductByTitle("Duck Tales");
+            productsFactory.reserveProductByTitle("Duck Tales");
+
+            expect(productsFactory.isAvailableByTitle("Duck Tales")).toBe(false);
+        });
     });
 
     describe("reserve product by title", function () {
-        it("should be able to reserve existing product by title", function () {
+        it("should return true when reserving available product", function () {
             expect(productsFactory.reserveProductByTitle("Duck Tales")).toBe(true);
+        });
+
+        it("should return false if no product is available", function () {
+            productsFactory.reserveProductByTitle("Duck Tales");
+            productsFactory.reserveProductByTitle("Duck Tales");
+
+            expect(productsFactory.reserveProductByTitle("Duck Tales")).toBe(false);
         });
     });
 
     describe("clear reservations", function () {
+        it("should contain zero reservations when clearing reservations", function () {
+            productsFactory.reserveProductByTitle("Duck Tales");
+            productsFactory.reserveProductByTitle("Duck Tales");
+            productsFactory.clearReservations();
 
+            productsFactory.reserveProductByTitle("Duck Tales");
+            var secondReservation = productsFactory.reserveProductByTitle("Duck Tales");
+            var thirdResrvation = productsFactory.reserveProductByTitle("Duck Tales");
+
+            expect(secondReservation).toBe(true);
+            expect(thirdResrvation).toBe(false);
+        });
     });
 
     describe("get products", function () {
-
+        it("should return all products when no title is given", function () {
+            expect(productsFactory.getProducts().length).toBe(3);
+        });
+        it("should return the first product with matching title when a title is given", function () {
+            expect(productsFactory.getProducts("Duck Tales").title).toBe("Duck Tales");
+        });
+        it("should return all products that match a title when many titles are given", function () {
+            expect(productsFactory.getProducts(["Duck Tales", "Mega Man"]).length).toBe(2);
+        });
     });
 
     describe("get focused product", function () {
+        it("should return the product with most available products after reservations are deducted", function () {
+            productsFactory.reserveProductByTitle("Mega Man");
+            productsFactory.reserveProductByTitle("Mega Man");
+            productsFactory.reserveProductByTitle("Mega Man");
 
+            expect(productsFactory.getFocusedProduct().title).toBe("Duck Tales");
+        });
     });
 });
