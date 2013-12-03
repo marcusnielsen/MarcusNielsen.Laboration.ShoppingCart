@@ -47,7 +47,7 @@
                 <div class="list-group-item clearfix" data-ng-repeat="product in products.getProducts()">
                     <img src="javascript:;" class="img-listed img-rounded pull-left" data-ng-src="{{product.image}}" alt="{{product.title}}" />
                     <span class="pull-right">
-                        <span class="btn btn-warning pull-right" data-ng-disabled="!products.isAvailableByTitle(product.title)" data-ng-click="shoppingCart.addToCart(product.title)">
+                        <span class="btn btn-warning btn-sm pull-right" data-ng-disabled="!products.isAvailableByTitle(product.title)" data-ng-click="shoppingCart.addToCart(product.title)">
                             <span class="glyphicon glyphicon-plus"></span>
                         </span>
                         <span class="inline-block">
