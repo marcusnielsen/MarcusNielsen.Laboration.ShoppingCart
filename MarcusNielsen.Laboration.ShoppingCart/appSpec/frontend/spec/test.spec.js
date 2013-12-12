@@ -6,7 +6,7 @@ describe('Start page', function() {
   });
 
   it('should have a focused product with title Mega Man', function() {
-    var title = ptor.findElement(protractor.by.binding('products.getFocusedProduct().title'));
+    var title = ptor.findElement(protractor.By.binding('products.getFocusedProduct().title'));
     expect(title.getText()).toEqual('Mega Man');
   });
 });

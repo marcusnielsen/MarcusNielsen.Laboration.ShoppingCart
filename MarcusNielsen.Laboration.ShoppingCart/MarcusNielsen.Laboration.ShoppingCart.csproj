@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appSpec\appCtrl.spec.js" />
+    <Content Include="appSpec\frontend\default.conf.js" />
+    <Content Include="appSpec\frontend\selenium\chromedriver.exe" />
+    <Content Include="appSpec\frontend\selenium\selenium-server-standalone-2.37.0.jar" />
+    <Content Include="appSpec\frontend\spec\test.spec.js" />
     <Content Include="appSpec\products\productsFactory.spec.js" />
     <Content Include="appSpec\shoppingCart\shoppingCartFactory.spec.js" />
     <Content Include="appSpec\specRunner.html" />
@@ -54,7 +58,16 @@
     <Content Include="Content\style.css" />
     <Content Include="index.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="web.config" />
+    <Content Include="appSpec\frontend\selenium\chromedriver_2.7.zip" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
